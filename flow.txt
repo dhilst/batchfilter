@@ -1,0 +1,13 @@
+
+
+- preset setup
+  - user can chose a new preview image
+    - is redirected to the same page with the new image
+  - user configure a preset and press save
+  - user is redirected to a preset saved page
+- preset saved page
+  - user upload multiple photos and press process
+  - user is redirected to the results page
+  - this page can be saved to the favorites
+- results page
+  - user preview and download the processed photos

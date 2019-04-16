@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+  .container-fluid
+    .canvas-container.visible
+      canvas(id='c')
+      form
+        +filter('brightness', 'Brightness', -0.2, 0.2, 0, 0.01)
+        +filter('contrast', 'Contrast', -0.2, 0.2, 0, 0.01)
+        +filter('gamma-red', 'Gamma Red', 0.1, 2, 1, 0.01)
+        +filter('gamma-green', 'Gamma Green', 0.1, 2, 1, 0.01)
+        +filter('gamma-blue', 'Gamm Blue', 0.1, 2, 1, 0.01)
+        .col-12.text-right.p-0
+          .btn-group
+            button#hide.btn.btn-secondary= "Hide"
+            button#reset.btn.btn-danger= "Reset"
+            button#submit.btn.btn-primary= "Save"
+
+mixin filter(name, label, min, max, default_, step=1)
+  .row.filter-container
+    span.filter-label=label
+    input(type="range" data-filter=name data-default=default_ value=default_ min=min max=max class="slider form-control" step=step)
+    span.filter-value
+
+

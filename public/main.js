@@ -6,7 +6,8 @@ const render = _.throttle((canvas) => {
     _(filters).entries().each(([filter, value]) => {
       oImg.filters.push(createFilter(filter, value));
     });
-    let scale = 500 / oImg.width;
+    let scale = $(window).width() / oImg.width;
+    console.log($(window).width());
     oImg.set({
       scaleX: scale,
       scaleY: scale,
@@ -19,7 +20,7 @@ const render = _.throttle((canvas) => {
 }, 200);
 
 const createCanvas = () => {
-  var canvas = new fabric.Canvas('c');
+  var canvas = new fabric.StaticCanvas('c');
   render(canvas);
   return canvas;
 }
@@ -27,7 +28,7 @@ const createCanvas = () => {
 const canvas = createCanvas();
 
 const updateNumber = (target) => {
-  $(target).parent().next().text(target.value);
+  $(target).parent().find('.filter-value').text(target.value);
 }
 
 $('.slider').each((i, e) => {
@@ -67,4 +68,9 @@ $("#submit").on('click', e => {
     },
     "json",
   );
+});
+
+$('#hide').on('click', event => {
+	event.preventDefault();
+	$('.slider').parent().toggle();
 });

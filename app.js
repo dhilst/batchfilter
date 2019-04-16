@@ -6,7 +6,6 @@ var logger = require('morgan');
 const createCallsiteRecord = require('callsite-record');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -26,7 +25,6 @@ app.use('/stylesheets', express.static(__dirname + '/node_modules/bootstrap/dist
 app.use('/scripts', express.static(__dirname + '/node_modules/bootstrap/dist/js/'));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

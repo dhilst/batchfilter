@@ -5,8 +5,20 @@ const filters = require('../common/filters');
 const db = require('../db/config');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', (req, res, next) => {
+  res.redirect('/preset/setup');
+});
+
+router.get('/preset/setup', (req, res, next) => {
+  res.render('preset/index');
+});
+
+router.get('/preset/:slug', (req, res, next) => {
+  res.render('preset/show');
+});
+
+router.get('/preset/:slug/:result', (req, res, next) => {
+  res.render('preset/results');
 });
 
 router.post('/filter', (req, res, next) => {
