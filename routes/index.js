@@ -8,6 +8,7 @@ const fs = require('fs');
 const md5 = require('object-hash').MD5;
 const createError = require('http-errors');
 const _ = require('lodash');
+const rimraf = require('rimraf');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -51,7 +52,6 @@ router.get('/preset/saved/:id', (req, res, next) => {
 router.post('/preset/process/:id', (req, res, next) => {
   const id = db.toId(req.params.id);
   const files = req.files.uploads;
-  console.log(req.files);
   db.savedfilters((db, savedfilters) => {
     savedfilters.findOne(id, (err, filtersobj) => {
       filtersobj = _.pickBy(filtersobj, (v,k) => ['_id', 'picture'].indexOf(k) === -1)
@@ -59,17 +59,16 @@ router.post('/preset/process/:id', (req, res, next) => {
         const extension = path.extname(file.name);
         const inputdir = `${__basedir}/public/input/${req.params.id}`;
         const inputpath = `${inputdir}/${file.md5}${extension}`;
+        const inputsrc = `/input/${req.params.id}/${file.md5}${extension}`;
         const outdir = `${__basedir}/public/output/${req.params.id}`;
         const outputpath = `${outdir}/${file.md5}${extension}`;
-        if (!fs.existsSync(inputdir)){
-              fs.mkdirSync(inputdir);
-        }
-        if (!fs.existsSync(outdir)){
-              fs.mkdirSync(outdir);
-        }
+        rimraf.sync(inputdir);
+        rimraf.sync(outdir);
+        fs.mkdirSync(inputdir);
+        fs.mkdirSync(outdir);
         file.mv(inputpath);
         _(filtersobj).entries().each(([filter, value]) => {
-          filters.applyFilter(filter, inputpath, outputpath);
+          filters.applyFilter(filter, inputsrc, outputpath);
         });
       });
       res.redirect(`/preset/download/preview/${req.params.id}`);
