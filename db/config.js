@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient 
 //const uri = "mongodb://localhost/batchfilter";
-const uri = process.env.DB_URI;
+const uri = process.env.MONGODB_URI;
 
 module.exports = {
 	connect(callback) {
