@@ -6,3 +6,4 @@ public/images/**/*.jpeg
 public/images/custompictures/**
 public/zips/**.zip
 **/*.swp
+.env
