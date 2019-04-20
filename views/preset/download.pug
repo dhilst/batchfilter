@@ -7,4 +7,5 @@ block content
 
   form(action=`/preset/download/zip/${id}`,
        method="POST")
-    button.btn-primary= "Download zip"
+    a.btn.btn-secondary(href=`/preset/saved/${id}`)= "Back" 
+    button.btn.btn-primary= "Download zip"
