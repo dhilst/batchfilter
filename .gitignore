@@ -4,4 +4,5 @@ public/input/**/*.png
 public/images/**/*.png
 public/images/**/*.jpeg
 public/images/custompictures/**
+public/zips/**.zip
 **/*.swp
