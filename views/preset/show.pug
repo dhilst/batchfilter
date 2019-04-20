@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  script.
+    window.savedfilter = !{JSON.stringify(savedfilter)}
+  .container-fluid
+    img(src=savedfilter.picture class="d-none")
+    canvas#c
+    form(enctype="multipart/form-data"
+         action=`/preset/process/${savedfilter._id}`
+         method="POST"
+        )
+      input(type="file" name="uploads" class="d-none" multiple)
+      button.btn-primary="Choose files"
+
+block javascripttags
+  script(src='/restorefilters.js')

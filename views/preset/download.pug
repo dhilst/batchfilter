@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+
+  each i in files
+    img(src=i)
+
+  form
+    button= "Download zip"

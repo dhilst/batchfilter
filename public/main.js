@@ -1,23 +1,21 @@
 var filters = {};
 
-const render = _.throttle((canvas) => {
-  fabric.Image.fromURL('/images/photo.jpeg', function(oImg) {
-    oImg.filters = []
-    _(filters).entries().each(([filter, value]) => {
-      oImg.filters.push(createFilter(filter, value));
-    });
-    let scale = $(window).width() / oImg.width;
-    console.log($(window).width());
-    oImg.set({
-      scaleX: scale,
-      scaleY: scale,
-    });
-    oImg.applyFilters();
-    canvas.setWidth(oImg.width * scale);
-    canvas.setHeight(oImg.height * scale);
-    canvas.add(oImg);
+const render = canvas => {
+  var oImg = new fabric.Image(document.getElementById("picture"));
+  oImg.filters = []
+  _(filters).entries().each(([filter, value]) => {
+    oImg.filters.push(createFilter(filter, value));
   });
-}, 200);
+  let scale = $(window).width() / oImg.width;
+  oImg.set({
+    scaleX: scale,
+    scaleY: scale,
+  });
+  oImg.applyFilters();
+  canvas.setWidth(oImg.width * scale);
+  canvas.setHeight(oImg.height * scale);
+  canvas.add(oImg);
+};
 
 const createCanvas = () => {
   var canvas = new fabric.StaticCanvas('c');
@@ -35,7 +33,7 @@ $('.slider').each((i, e) => {
   updateNumber(e);
 })
 
-$('.slider').on('input', (event) => {
+$('.slider').on('change', (event) => {
   const [filter, value] = [$(event.target).data('filter'), event.target.value];
   filters[filter] = value;
   updateNumber(event.target);
@@ -52,22 +50,13 @@ $("#reset").on('click', e => {
   render(canvas);
 });
 
-$("#submit").on('click', e => {
+$('#choosepicture').on('click', e => {
   e.preventDefault();
-  $.post('/filter',
-    {
-      data: JSON.stringify({
-        filters,
-        image: '/images/photo.jpeg',
-      })
-    },
-    data => {
-      data = $.parseJSON(data);
-      $('.download')
-        .html($(`<div><a href=${data.url}>${data.url}</a></div>`));
-    },
-    "json",
-  );
+  $('input[type=file]').click();
+});
+
+$('#custompictureinput').on('change', e => {
+  $("#custompictureform").submit();
 });
 
 $('#hide').on('click', event => {
