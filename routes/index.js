@@ -26,6 +26,7 @@ router.post('/preset/setup/changepicture', (req, res, next) => {
   const file = req.files.custompicture;
   const extension = path.extname(file.name);
   const picpath = '/images/custompictures/' + file.md5 + extension
+  console.log(file, extension, picpath);
   file.mv(__basedir + '/public' + picpath);
   res.render('preset/index', { picture: picpath });
 });

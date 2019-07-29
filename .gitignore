@@ -3,7 +3,9 @@ public/output/**/*.png
 public/input/**/*.png
 public/images/**/*.png
 public/images/**/*.jpeg
-public/images/custompictures/**
+public/images/custompictures/**.png
+public/images/custompictures/**.jpeg
+public/images/custompictures/**.jpg
 public/zips/**.zip
 **/*.swp
 .env
